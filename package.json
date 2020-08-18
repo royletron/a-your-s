@@ -1,0 +1,20 @@
+{
+  "name": "404",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build:clean": "rm -rf dist && rm build.tar.gz | exit 0",
+    "build:package": "parcel build index.html --no-source-maps --experimental-scope-hoisting",
+    "build:zip": "tar -zcvf build.tar.gz dist/",
+    "build:test": "stat -f \"%z bytes\" build.tar.gz",
+    "build": "npm run build:clean && npm run build:package && npm run build:zip && npm run build:test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
+}
