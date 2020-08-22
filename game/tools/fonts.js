@@ -1,1 +1,1 @@
-export const default_ui = "20px Courier New";
+export const default_ui = "900 20px Courier New";

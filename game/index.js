@@ -1,5 +1,6 @@
 import Sprite from "./sprite";
 import Panel from "./ui/Panel";
+import RequestManager from "./requestman";
 
 class Game {
   constructor(id, blur) {
@@ -9,6 +10,7 @@ class Game {
     this.ctx = this.canvas.getContext("2d");
     this.time = Date.now();
     this.stage = new Sprite(this.canvas.offsetWidth, this.canvas.offsetHeight);
+    this.reqman = new RequestManager();
     this.stage.parent = this;
     this.stage.add(new Panel("hello world", 20, 20));
     this.stage.add(new Panel("hello world", 90, 200));
@@ -20,11 +22,15 @@ class Game {
     this.time = time;
     this.update(dtx);
     this.draw();
-    const turb = document.querySelectorAll("#noise feTurbulence")[0];
-    turb.setAttribute(
-      "baseFrequency",
-      Math.random() * 0.0004 + 0.002 + " " + (Math.random() * 0.0004 + 0.002)
-    );
+    if (Math.random() > 0.8) {
+      const turb = document.querySelectorAll("#noise feTurbulence")[0];
+      turb.setAttribute(
+        "baseFrequency",
+        Math.random() * 0.001 + " " + Math.random() * 0.001
+      );
+      const blur = document.querySelector("#overlay");
+      blur.style.filter = `url("#blur") brightness(${Math.random() * 80 + 120}%)`;
+    }
     requestAnimationFrame(this.tick.bind(this));
   }
   draw() {
@@ -36,7 +42,7 @@ class Game {
   }
   update(dtx) {
     this.stage.update(dtx);
-    // console.log(dtx);
+    this.reqman.update(dtx);
   }
 }
 

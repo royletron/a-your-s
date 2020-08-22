@@ -10,7 +10,7 @@
       #holder {
         position: relative;
       }
-      #blur {
+      #game {
         filter: url(#noise);
       }
       #game {
@@ -22,9 +22,17 @@
   </head>
   <body>
     <div id="holder">
+      <canvas
+        id="overlay"
+        style="filter: url(#blur) brightness(240%);"
+        width="1024"
+        height="768"
+      ></canvas>
       <canvas id="game" width="1024" height="768"></canvas>
-      <canvas id="blur" width="1024" height="768"></canvas
-      ><svg viewBox="0 0 1024 768" style="display: none;">
+      <svg viewBox="0 0 1024 768" style="display: none;">
+        <filter id="blur" x="0%" y="0%" width="100%" height="100%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+        </filter>
         <filter id="noise" x="0%" y="0%" width="100%" height="100%">
           <feTurbulence
             type="fractalNoise"
